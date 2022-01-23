@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import "reset-css";
 import { shuffle, sortBy } from "lodash";
-import { graphql } from "gatsby";
+// import { graphql } from "gatsby";
 import classnames from "classnames";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import ClickableBox from "clickable-box";
+import designerData from '../data/designers.yaml';
 import categories from "../categories";
 import Profile from "../components/profile";
 import Layout from "../components/layout";
@@ -23,7 +24,7 @@ const capitalize = (s) => {
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
-const App = ({ data }) => {
+const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [visibleDesigners, setVisibleDesigners] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState({});
@@ -66,10 +67,10 @@ const App = ({ data }) => {
   }
 
   useEffect(() => {
-    const shuffledDesigners = shuffle(data.allTwitterProfile.edges);
+    const shuffledDesigners = shuffle(designerData);
     setVisibleDesigners(shuffledDesigners);
     setIsLoading(false);
-  }, [data.allTwitterProfile.edges]);
+  }, []);
 
   const numDesignersPerPage = 52;
   const numPagesToShowInPagination = 5;
@@ -94,7 +95,7 @@ const App = ({ data }) => {
           }
 
           return categoryValue.some((filter) => {
-            return designer.node.profile.tags[categoryName][filter];
+            return designer.profile[categoryName].includes(filter);
           });
         });
       });
@@ -116,7 +117,7 @@ const App = ({ data }) => {
             toggleFilterList={() => {
               setIsFilterListVisible(!isFilterListVisible);
             }}
-            isLoading={isLoading}
+            isLoading={false}
           />
 
           <div
@@ -150,9 +151,7 @@ const App = ({ data }) => {
                       }
                       className={styles.filterItemInput}
                       title={category.title}
-                      count={
-                        data[`tagCount${capitalize(category.id)}`].totalCount
-                      }
+                      count={category.totalCount}
                     />
                   ))}
                 </div>
@@ -172,7 +171,7 @@ const App = ({ data }) => {
           ) : (
             <>
               <div className={styles.profiles}>
-                {filteredDesigners.map(({ node: designer }, i) => {
+                {filteredDesigners.map((designer, i) => {
                   if (i < pagination.startIndex || i > pagination.endIndex) {
                     return null;
                   }
@@ -180,19 +179,15 @@ const App = ({ data }) => {
                   return (
                     <Profile
                       image={designer.profile.profile_image_url_https}
-                      fluid={designer.localFile.childImageSharp?.fluid}
+                      fluid=''
                       name={designer.profile.name}
                       description={designer.profile.description}
                       location={designer.profile.location || "N/A"}
                       hex={`#${designer.profile.profile_link_color}`}
-                      key={designer.profile.screen_name}
+                      key={designer.profile.name}
                       contrast={designer.profile.contrast}
-                      displayUrl={
-                        designer.profile.entities.url?.urls[0].display_url
-                      }
-                      expandedUrl={
-                        designer.profile.entities.url?.urls[0].expanded_url
-                      }
+                      displayUrl={designer.profile.display_url}
+                      expandedUrl={designer.profile.expanded_url}
                       handle={designer.profile.screen_name}
                     />
                   );
@@ -370,275 +365,3 @@ const App = ({ data }) => {
 };
 
 export default App;
-
-export const pageQuery = graphql`
-  query Index {
-    allTwitterProfile {
-      edges {
-        node {
-          localFile {
-            childImageSharp {
-              fluid(grayscale: true, maxWidth: 200) {
-                ...GatsbyImageSharpFluid_withWebp_noBase64
-              }
-            }
-          }
-          profile {
-            description
-            name
-            screen_name
-            location
-            profile_image_url_https
-            profile_link_color
-            tags {
-              location {
-                nyc
-                ba
-                la
-                london
-                portland
-                toronto
-                vancouver
-                seattle
-                austin
-              }
-              position {
-                ceo
-                author
-                director
-                founder
-                freelance
-                head
-                lead
-                manager
-                speaker
-                vp
-              }
-              expertise {
-                art
-                content
-                creative
-                systems
-                developer
-                engineer
-                graphic
-                illustrator
-                letter
-                product
-                research
-                typeface
-                ux
-                web
-                writer
-              }
-            }
-            entities {
-              url {
-                urls {
-                  expanded_url
-                  display_url
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    tagCountArt: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { art: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountAuthor: allTwitterProfile(
-      filter: { profile: { tags: { position: { author: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountCeo: allTwitterProfile(
-      filter: { profile: { tags: { position: { ceo: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountContent: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { content: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountCreative: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { creative: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountDeveloper: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { developer: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountDirector: allTwitterProfile(
-      filter: { profile: { tags: { position: { director: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountEngineer: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { engineer: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountFounder: allTwitterProfile(
-      filter: { profile: { tags: { position: { founder: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountFreelance: allTwitterProfile(
-      filter: { profile: { tags: { position: { freelance: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountGraphic: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { graphic: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountHead: allTwitterProfile(
-      filter: { profile: { tags: { position: { head: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountIllustrator: allTwitterProfile(
-      filter: {
-        profile: { tags: { expertise: { illustrator: { eq: true } } } }
-      }
-    ) {
-      totalCount
-    }
-
-    tagCountLead: allTwitterProfile(
-      filter: { profile: { tags: { position: { lead: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountLetter: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { letter: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountManager: allTwitterProfile(
-      filter: { profile: { tags: { position: { manager: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountProduct: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { product: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountResearch: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { research: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountSpeaker: allTwitterProfile(
-      filter: { profile: { tags: { position: { speaker: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountSystems: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { systems: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountUx: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { ux: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountVp: allTwitterProfile(
-      filter: { profile: { tags: { position: { vp: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountWeb: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { web: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-
-    tagCountWriter: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { writer: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountBa: allTwitterProfile(
-      filter: { profile: { tags: { location: { ba: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountLa: allTwitterProfile(
-      filter: { profile: { tags: { location: { la: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountNyc: allTwitterProfile(
-      filter: { profile: { tags: { location: { nyc: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountLondon: allTwitterProfile(
-      filter: { profile: { tags: { location: { london: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountSeattle: allTwitterProfile(
-      filter: { profile: { tags: { location: { seattle: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountAustin: allTwitterProfile(
-      filter: { profile: { tags: { location: { austin: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountPortland: allTwitterProfile(
-      filter: { profile: { tags: { location: { portland: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountToronto: allTwitterProfile(
-      filter: { profile: { tags: { location: { toronto: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountTypeface: allTwitterProfile(
-      filter: { profile: { tags: { expertise: { typeface: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-    tagCountVancouver: allTwitterProfile(
-      filter: { profile: { tags: { location: { vancouver: { eq: true } } } } }
-    ) {
-      totalCount
-    }
-  }
-`;

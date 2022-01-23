@@ -1,0 +1,21 @@
+--- # Designers
+- profile:
+    name: Tanya Orellana
+    description: Performance Spaces. Campo Santo. Critical Resistance.
+    profile_image_url_https: 'https://pbs.twimg.com/media/CodcLMbWIAAcSv7?format=jpg&name=4096x4096'
+    profile_link_color: '097969'
+    location: Los Angeles
+    display_url: tanyaorellana.com
+    expanded_url: https://tanyaorellana.com
+    expertise:
+      - Set Design
+- profile:
+    name: Tanya Orellana 2
+    description: Performance Spaces. Campo Santo. Critical Resistance.
+    profile_image_url_https: 'https://pbs.twimg.com/media/CodcLMbWIAAcSv7?format=jpg&name=4096x4096'
+    profile_link_color: '097969'
+    location: Los Angeles
+    display_url: tanyaorellana.com
+    expanded_url: https://tanyaorellana.com
+    expertise:
+      - Puppetry

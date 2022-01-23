@@ -56,7 +56,7 @@ const Profile = (props) => {
         dangerouslySetInnerHTML={{ __html: props.description }}
       />
 
-      <Button
+      {/* <Button
         href={`https://twitter.com/${props.handle}`}
         target="_blank"
         rel="noopener noreferrer"
@@ -70,7 +70,7 @@ const Profile = (props) => {
         <span className={styles.linkText}>
           <TwitterIcon style={{ color: "white" }} /> Twitter
         </span>
-      </Button>
+      </Button> */}
     </div>
   );
 };
