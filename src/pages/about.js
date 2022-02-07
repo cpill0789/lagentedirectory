@@ -79,200 +79,32 @@ const App = () => (
     <Nav theme="light" />
     <div className={styles.container}>
       <h1 className={styles.h1}>About this project</h1>
-      <p>
-        Women Who Design is a Twitter directory of accomplished women in the
-        design industry. It aims to help people find notable and relevant voices
-        to follow on Twitter by parsing Twitter bios for popular keywords.
-      </p>
+      <p>La Gente: The Latinx Theatre Production Network is a collective of theatre designers, artists, technicians, and managers.  We believe in the transformative power of theatre and our collective dream of a performance industry that includes room for all.  We have a profound belief that theatre is more beautiful with more of us at the table.</p>
 
-      <h2 className={styles.emphasis}>Source code</h2>
-      <p>
-        Women Who Design is happy to support new directories highlighting
-        underrepresented or marginalized groups. If you’re looking to start a
-        similar effort, feel free to fork the project on{" "}
-        <a href="https://github.com/julesforrest/womenwhodesign">GitHub</a>.
-      </p>
-      <h2 className={styles.emphasis}>Similar directories</h2>
-      <p>
-        Examining diversity along the axis of gender is one small piece of the
-        puzzle. If you’ve found this site to be valuable, please take a look at
-        the work of friends in the industry building similar efforts.
-      </p>
-      <div className={styles.friendContainer}>
-        {sortedFriends.map((friend) => {
-          const friendImageStyles = classnames({
-            [styles.friendImage]: true,
-            [styles.friendImageInvert]: friend.invert === true,
-            [styles.friendImageContrast]: friend.contrast === true,
-          });
-          return (
-            <a
-              href={friend.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              key={friend.title}
-              className={styles.friendItem}
-            >
-              <img
-                src={friend.image}
-                className={friendImageStyles}
-                alt={`${friend.title} logo`}
-              />
-              <p className={styles.friendTitle}>{friend.title}</p>
-            </a>
-          );
-        })}
-      </div>
-      <h1 className={styles.h1}>How to use</h1>
-      <p>Here are some things Women Who Design can help you with:</p>
+      <p>This dream is powerful.</p>
 
-      <h2 className={styles.emphasis}>
-        Use{" "}
-        <a
-          href="https://www.proporti.onl/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          proporti.onl
-        </a>{" "}
-        to check the ratio of the people you follow on Twitter.
-      </h2>
-      <p>
-        If you’re following more men than women, use this project to follow new
-        women and diversify the voices in your feed. Be aware that a feed of
-        white women is not diverse.
-      </p>
-      <h2 className={styles.emphasis}>
-        If you’re a hiring manager, use this project to find candidates.{" "}
-      </h2>
-      <p>
-        Examine the ratio of senior men to senior women in your organization.
-        Are women of color equally represented? Consider hiring women into
-        promotions above their current role.
-      </p>
+      <p>This dream is magical.</p>
 
-      <h2 className={styles.emphasis}>
-        If you’re organizing a conference, use this project to find speakers.
-      </h2>
-      <p>
-        Ensure that the women’s speaking slots are as prominent as the men’s.
-        Are women of color equally represented? Consider reaching out to women
-        who have never given a talk before.
-      </p>
 
-      <h2 className={styles.emphasis}>
-        If you have a podcast, use this project to find new guests.{" "}
-      </h2>
-      <p>
-        Be mindful of interruptions and ensure that your women guests get equal
-        speaking time. Are women of color equally represented? Consider inviting
-        women who don’t already have an audience.
-      </p>
+      <p>It rises above our physical work and opens possibilities for new and bold explorations of what collaboration and creation could be with a true diversity of aesthetics and lived experiences.  Building this dream for ourselves, we celebrate the intergenerational membership of our network and welcome all Latinx theatre designers, technicians, and managers to be a part of it.</p>
 
-      <h2 className={styles.emphasis}>Further reading</h2>
-      <p>
-        For becoming a better ally – to women, people of color, LGBTQ, disabled,
-        ESL or any other marginalized group.
-      </p>
 
-      <ul className={styles.ul}>
-        <li className={styles.liLinks}>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="http://www.guidetoallyship.com/"
-          >
-            Guide to Allyship
-          </a>{" "}
-          by Amélie Lamont
-        </li>
+      <p>We work and speak in solidarity with other BIPOC coalitions and historically marginalized communities .  We commit to continuing to strengthen our anti-racist and anti-oppression practices while actively dismantling oppressive practices in the field.</p>
 
-        <li className={styles.liLinks}>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://medium.com/@nmsanchez/how-to-build-inclusive-culture-360160f417a1"
-          >
-            How to Build Inclusive Culture
-          </a>{" "}
-          by Nicole Sanchez
-        </li>
-        <li className={styles.liLinks}>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://medium.com/mule-design/be-a-pal-my-dudes-a34c06df1b1d"
-          >
-            Be a Pal, My Dudes
-          </a>{" "}
-          by Erika Hall
-        </li>
-        <li className={styles.liLinks}>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://larahogan.me/blog/what-sponsorship-looks-like/"
-          >
-            What Does Sponsorship Look Like?
-          </a>{" "}
-          by Lara Hogan
-        </li>
-        <li className={styles.liLinks}>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.huffingtonpost.com/entry/some-garbage-i-used-to-believe-about-equality_us_58501c5be4b0151082221ef7"
-          >
-            Some Garbage I Used to Believe About Equality
-          </a>{" "}
-          by Johnathan Nightingale
-        </li>
-      </ul>
-      <h1 className={styles.h1}>Other notes</h1>
-      <h2 className={styles.emphasis}>Support</h2>
-      <p>
-        Women Who Design is an independent project. If you’re interested in
-        supporting it, please consider posting a job.
-      </p>
-      <Button
-        href="https://womenwhodesign.seeker.company/submit/job"
-        width="auto"
-      >
-        Post a job
-      </Button>
-      <h2 className={styles.emphasis}>Opt out</h2>
-      <p>
-        If you’ve been featured in the directory and you’d rather not be, please
-        send a DM to{" "}
-        <a
-          href="https://twitter.com/womenwhodesign"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          @womenwhodesign
-        </a>{" "}
-        on Twitter and you will be removed.
-      </p>
 
-      <p>
-        Special thanks to{" "}
-        <a href="https://netlify.com" target="_blank" rel="noopener noreferrer">
-          Netlify
-        </a>{" "}
-        for their support.
-      </p>
-      <p>
-        <span role="img" aria-label="Peace hand emoji">
-          ✌️
-        </span>{" "}
-        <a
-          href="https://twitter.com/julesforrest"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          @julesforrest
-        </a>
-      </p>
+      <p>We believe in an industry that supports the wholeness and wellness of all practitioners and work in solidarity with movements that advocate for radical inclusion in all production practices.  As such, we share our collective strength, knowledge, and resources with our community and aligned movements.</p>
+
+
+      <p>We remain committed to our foundational values: visibility, engagement, and advocacy for Latinx designers, technicians, and managers in the live performance field.</p>
+
+
+      <p><strong>Visibility:</strong> We want to showcase members of our amazing community, share events on the local and national levels, display the large diversity of work we do as a community, and highlight our work in education.</p>
+
+
+      <p><strong>Engagement:</strong> We want to connect with theaters, directors, producers, collaborators, administrators, and audiences as we celebrate each other’s work and accomplishments.</p>
+
+
+      <p><strong>Advocacy:</strong> We operate in solidarity with BIPOC movements, encouraging hiring at the local level, mentoring young theater artists, and sharing resources.</p>
       <div className={styles.backContainer}>
         <Link to="/" className={styles.backLink}>
           Back to directory

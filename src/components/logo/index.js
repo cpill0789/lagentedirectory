@@ -2,7 +2,7 @@ import React from "react";
 
 const Logo = (props) => {
   return (
-    <h1 className={props.className}>La Gente Network Directory</h1>
+    <h1 className={props.className}>LA GENTE:<br/>The Latinx/e Theatre Production Network</h1>
   );
 };
 

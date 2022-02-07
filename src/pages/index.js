@@ -5,7 +5,7 @@ import { shuffle, sortBy } from "lodash";
 import classnames from "classnames";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import ClickableBox from "clickable-box";
-import designerData from '../data/designers.yaml';
+import designerData from '../data/designerData';
 import categories from "../categories";
 import Profile from "../components/profile";
 import Layout from "../components/layout";
@@ -19,10 +19,10 @@ import CloseIcon from "../icons/close";
 import FilterIcon from "../icons/filter";
 import Button from "../components/button";
 
-const capitalize = (s) => {
-  if (typeof s !== "string") return "";
-  return s.charAt(0).toUpperCase() + s.slice(1);
-};
+// const capitalize = (s) => {
+//   if (typeof s !== "string") return "";
+//   return s.charAt(0).toUpperCase() + s.slice(1);
+// };
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +41,6 @@ const App = () => {
 
   const filterCategoryTypes = [
     { name: "Expertise", id: "expertise" },
-    { name: "Position", id: "position" },
     { name: "Location", id: "location" },
   ];
 

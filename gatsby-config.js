@@ -4,8 +4,8 @@ require("dotenv").config();
 
 module.exports = {
   siteMetadata: {
-    title: "La Gente Network Directory",
-    description: `Product design, design systems and web development.`,
+    title: "LA GENTE: The Latinx/e Theatre Production Network",
+    description: `LA GENTE: The Latinx/e Theatre Production Network`,
     siteUrl: `https://lagentenetwork.com`,
   },
   plugins: [
@@ -28,23 +28,23 @@ module.exports = {
     //     trackingId: process.env.WWD_GOOGLE_ANALYTICS_ID,
     //   },
     // },
-    {
-      resolve: `gatsby-plugin-favicon`,
-      options: {
-        logo: "./src/favicon.png",
-        injectHTML: true,
-        icons: {
-          android: false,
-          appleIcon: false,
-          appleStartup: false,
-          coast: false,
-          favicons: true,
-          firefox: false,
-          twitter: false,
-          yandex: false,
-          windows: false,
-        },
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-favicon`,
+    //   options: {
+    //     logo: "./src/favicon.png",
+    //     injectHTML: true,
+    //     icons: {
+    //       android: false,
+    //       appleIcon: false,
+    //       appleStartup: false,
+    //       coast: false,
+    //       favicons: true,
+    //       firefox: false,
+    //       twitter: false,
+    //       yandex: false,
+    //       windows: false,
+    //     },
+    //   },
+    // },
   ],
 };

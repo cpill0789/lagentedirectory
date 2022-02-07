@@ -2,7 +2,7 @@
 - profile:
     name: Tanya Orellana
     description: Performance Spaces. Campo Santo. Critical Resistance.
-    profile_image_url_https: 'https://pbs.twimg.com/media/CodcLMbWIAAcSv7?format=jpg&name=4096x4096'
+    profile_image_file: 'tanya_orellana.jpg'
     profile_link_color: '097969'
     location: Los Angeles
     display_url: tanyaorellana.com
@@ -10,12 +10,32 @@
     expertise:
       - Set Design
 - profile:
-    name: Tanya Orellana 2
-    description: Performance Spaces. Campo Santo. Critical Resistance.
-    profile_image_url_https: 'https://pbs.twimg.com/media/CodcLMbWIAAcSv7?format=jpg&name=4096x4096'
+    name: Alejo Vietti
+    description: Latinx Costume Designer based in NYC-originally from Argentina
+    profile_image_file: 'alejo_vietti.jpg'
+    profile_link_color: '097969'
+    location: New York City
+    display_url: instagram
+    expanded_url: https://www.instagram.com/alejo_vietti_costume_design/
+    expertise:
+      - Costume Design
+- profile:
+    name: Carolina Ortiz Herrera
+    description: New York-based lighting designer for theatre, opera, and dance
+    profile_image_file: 'carolina.jpg'
+    profile_link_color: '097969'
+    location: New York City
+    display_url: carolinaeortiz.com
+    expanded_url: https://carolinaeortiz.com/
+    expertise:
+      - Lighting Design
+- profile:
+    name: Efren Delgadillo Jr.
+    description: Scenic Designer | Maestro Chicano | Poor Dog Group
+    profile_image_file: 'efren.jpg'
     profile_link_color: '097969'
     location: Los Angeles
-    display_url: tanyaorellana.com
-    expanded_url: https://tanyaorellana.com
+    display_url: efrendelgadillojr.com
+    expanded_url: http://www.efrendelgadillojr.com/
     expertise:
-      - Puppetry
+      - Set Design
