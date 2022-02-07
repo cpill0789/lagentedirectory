@@ -49,10 +49,10 @@
 .image {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-  align-self: start;
+  align-self: center;
 
   @media (min-width: $desktop) {
-    align-self: initial;
+    align-self: center;
   }
 }
 
