@@ -59,8 +59,7 @@
 .grayImage {
   composes: image;
   // filter: grayscale(100%);
-  width: fit-content;
-  height: 200px;
+  max-height: 200px;
 }
 
 .name {
