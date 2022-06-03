@@ -12,7 +12,7 @@ const Profile = (props) => {
       className={styles.profile}
       style={{
         "--profile-theme-color":
-          props.hex === "#FFFFFF" ? "#1da1f2" : props.hex,
+          props.hex === "#FFFFFF" ? "#000000" : props.hex,
       }}
     >
       {props.fluid ? (

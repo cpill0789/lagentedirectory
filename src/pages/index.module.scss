@@ -14,6 +14,7 @@
   padding: var(--page-shell-padding);
   transition: all 0.5s ease;
   width: 100%;
+  background-color: var(--marigold);
   @media (min-width: $desktop) {
     height: 100vh;
   }
@@ -21,7 +22,7 @@
 
 .sidebar {
   overflow-y: scroll;
-  background-color: var(--gray);
+  background-color: var(--light-gray);
   @media (min-width: $desktop) {
     min-width: var(--sidebar);
     width: var(--sidebar);
@@ -35,7 +36,7 @@
 .filterContainer {
   padding: 0 var(--page-shell-padding) var(--page-shell-padding);
   color: var(--text);
-  background-color: var(--background);
+  background-color: var(--light-gray);
   display: none;
   @media (min-width: $desktop) {
     display: block;
