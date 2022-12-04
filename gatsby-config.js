@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const sass = require("sass");
-require("dotenv").config();
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 
 module.exports = {
   siteMetadata: {
@@ -18,9 +20,20 @@ module.exports = {
         implementation: sass,
       },
     },
+    {
+      resolve: "gatsby-source-strapi",
+      options: {
+        apiURL: process.env.STRAPI_API_URL || "http://localhost:1337",
+        accessToken: process.env.STRAPI_TOKEN,
+        collectionTypes: ["designer", "location", "expertise"],
+        singleTypes: ["about"],
+      },
+    },
     `gatsby-plugin-lodash`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-image`,
     `gatsby-plugin-react-helmet`,
     // {
     //   resolve: `gatsby-plugin-google-analytics`,

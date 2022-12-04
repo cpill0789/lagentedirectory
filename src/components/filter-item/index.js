@@ -1,6 +1,6 @@
 import React from "react";
 import classnames from "classnames";
-import styles from "./index.module.scss";
+import * as styles from "./index.module.scss";
 import SquareCheckIcon from "../../icons/square-check";
 import SquareIcon from "../../icons/square";
 

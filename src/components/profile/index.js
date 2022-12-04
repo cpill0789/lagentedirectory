@@ -1,12 +1,12 @@
 import React from "react";
-import Img from "gatsby-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import MapIcon from "../../icons/map";
 import LinkIcon from "../../icons/link";
-import TwitterIcon from "../../icons/twitter";
-import styles from "./profile.module.scss";
-import Button from "../button";
+import * as styles from "./profile.module.scss";
 
 const Profile = (props) => {
+  const image = getImage(props.image.localFile);
+  
   return (
     <div
       className={styles.profile}
@@ -14,22 +14,14 @@ const Profile = (props) => {
         "--profile-theme-color":
           props.hex === "#FFFFFF" ? "#000000" : props.hex,
       }}
-    >
-      {props.fluid ? (
-        <Img
-          alt={`${props.name}'s avatar on Twitter.'`}
-          fluid={props.fluid}
-          backgroundColor
-          className={styles.image}
-        />
-      ) : (
-        <img
-          className={styles.grayImage}
-          alt={`${props.name}'s avatar on Twitter.'`}
-          src={props.image.replace("_normal", "_400x400")}
-          loading="lazy"
-        />
-      )}
+    > 
+      <GatsbyImage 
+        image={image}
+        alt={`${props.name}'s avatar.'`}
+        fluid={props.fluid}
+        backgroundColor
+        className={styles.image}
+      />
       <h2 className={styles.name}>{props.name}</h2>
       <p className={styles.location}>
         <MapIcon
@@ -55,22 +47,6 @@ const Profile = (props) => {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: props.description }}
       />
-
-      {/* <Button
-        href={`https://twitter.com/${props.handle}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          "--background": "var(--profile-theme-color)",
-          gridColumn: "1 / -1",
-          marginTop: "auto",
-          marginBottom: 0,
-        }}
-      >
-        <span className={styles.linkText}>
-          <TwitterIcon style={{ color: "white" }} /> Twitter
-        </span>
-      </Button> */}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 import { Link } from "gatsby";
-import styles from "./index.module.scss";
+import * as styles from "./index.module.scss";
 
 const Button = ({
   children,

@@ -1,39 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import "reset-css";
 import { shuffle, sortBy } from "lodash";
-// import { graphql } from "gatsby";
+import { graphql } from "gatsby";
 import classnames from "classnames";
-import { DialogOverlay, DialogContent } from "@reach/dialog";
-import ClickableBox from "clickable-box";
-import designerData from '../data/designerData';
-import categories from "../categories";
 import Profile from "../components/profile";
 import Layout from "../components/layout";
 import FilterItem from "../components/filter-item";
 import Nav from "../components/nav";
 import Loader from "../components/loader";
 import paginate from "../paginate";
-import "@reach/dialog/styles.css";
-import styles from "./index.module.scss";
-import CloseIcon from "../icons/close";
-import FilterIcon from "../icons/filter";
-import Button from "../components/button";
+import * as styles from "./index.module.scss";
 
-// const capitalize = (s) => {
-//   if (typeof s !== "string") return "";
-//   return s.charAt(0).toUpperCase() + s.slice(1);
-// };
-
-const App = () => {
+const App = ({ data }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [filterCategories, setFilterCategories] = useState([]);
   const [visibleDesigners, setVisibleDesigners] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState({});
 
   const [isFilterListVisible, setIsFilterListVisible] = useState(false);
-
-  const [showDialog, setShowDialog] = React.useState(false);
-  const open = () => setShowDialog(true);
-  const close = () => setShowDialog(false);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -66,10 +50,46 @@ const App = () => {
   }
 
   useEffect(() => {
-    const shuffledDesigners = shuffle(designerData);
+    const tagCounts = {}
+
+    data.allStrapiDesigner.nodes.forEach(designer => {
+      designer.expertise.forEach(item => {
+        if (tagCounts[item.id] === undefined) {
+          tagCounts[item.id] = 0;
+        }
+        tagCounts[item.id] += 1;
+      });
+      
+      if (tagCounts[designer.location.id] === undefined) {
+        tagCounts[designer.location.id] = 0;
+      }
+      tagCounts[designer.location.id] += 1;
+    });
+
+    const expertise = data.allStrapiExpertise.nodes.map(item => {
+      return {
+        title: item.Name,
+        id: item.id,
+        expertise: true,
+        totalCount: tagCounts[item.id],
+      }
+    });
+    const location = data.allStrapiLocation.nodes.map(item => {
+      return {
+        title: item.DisplayName,
+        id: item.id,
+        location: true,
+        totalCount: tagCounts[item.id],
+      }
+    });
+    const shuffledDesigners = shuffle(data.allStrapiDesigner.nodes);
+
+    
+
+    setFilterCategories([...expertise, ...location]);
     setVisibleDesigners(shuffledDesigners);
     setIsLoading(false);
-  }, []);
+  }, [data.allStrapiDesigner.nodes, data.allStrapiExpertise.nodes, data.allStrapiLocation.nodes]);
 
   const numDesignersPerPage = 52;
   const numPagesToShowInPagination = 5;
@@ -94,7 +114,11 @@ const App = () => {
           }
 
           return categoryValue.some((filter) => {
-            return designer.profile[categoryName].includes(filter);
+            let attributesToFilter = designer[categoryName];
+            if (!Array.isArray(attributesToFilter)) {
+              attributesToFilter = [attributesToFilter];
+            }
+            return attributesToFilter.some((item) => item.id === filter);
           });
         });
       });
@@ -116,7 +140,7 @@ const App = () => {
             toggleFilterList={() => {
               setIsFilterListVisible(!isFilterListVisible);
             }}
-            isLoading={false}
+            isLoading={isLoading}
           />
 
           <div
@@ -126,7 +150,7 @@ const App = () => {
             })}
           >
             {filterCategoryTypes.map((section) => {
-              const categoriesInSection = categories.filter(
+              const categoriesInSection = filterCategories.filter(
                 (c) => c[section.id]
               );
               const sortedCategoriesInSection = sortBy(
@@ -177,17 +201,14 @@ const App = () => {
 
                   return (
                     <Profile
-                      image={designer.profile.profile_image_url_https}
-                      fluid=''
-                      name={designer.profile.name}
-                      description={designer.profile.description}
-                      location={designer.profile.location || "N/A"}
-                      hex={`#${designer.profile.profile_link_color}`}
-                      key={designer.profile.name}
-                      contrast={designer.profile.contrast}
-                      displayUrl={designer.profile.display_url}
-                      expandedUrl={designer.profile.expanded_url}
-                      handle={designer.profile.screen_name}
+                      image={designer.ProfileImage}
+                      name={designer.Name}
+                      description={designer.Description}
+                      location={designer.location.DisplayName || "N/A"}
+                      hex={`#${designer.profile_link_color}`}
+                      key={designer.id}
+                      displayUrl={designer.display_url}
+                      expandedUrl={designer.expanded_url}
                     />
                   );
                 })}
@@ -274,93 +295,58 @@ const App = () => {
                       →
                     </button>
                   </div>
-                  <div className={styles.filterButtonContainer}>
-                    <Button type="button" onClick={open} fullWidth={false}>
-                      <FilterIcon /> Filter
-                      {selectedFilters.length > 0 && (
-                        <>
-                          <span>·</span> <span>{selectedFilters.length}</span>
-                        </>
-                      )}
-                    </Button>
-                  </div>
                 </>
               ) : (
                 <div>There are no designers that match these filters.</div>
               )}
             </>
           )}
-          <div>
-            <DialogOverlay isOpen={showDialog} onDismiss={close}>
-              <DialogContent aria-label="Filter designers">
-                <div className={styles.dialogHeader}>
-                  <ClickableBox className={styles.closeButton} onClick={close}>
-                    <span aria-hidden>
-                      <CloseIcon />
-                    </span>
-                  </ClickableBox>
-                  <h2>Filter</h2>
-                  <button
-                    onClick={() => {
-                      setSelectedFilters([]);
-                      setCurrentPage(1);
-                    }}
-                    className={styles.filterClear}
-                    type="button"
-                    style={{ marginRight: "16px" }}
-                  >
-                    Clear
-                  </button>
-                </div>
-                <div className={styles.dialogBody}>
-                  {filterCategoryTypes.map((section) => {
-                    const categoriesInSection = categories.filter(
-                      (c) => c[section.id]
-                    );
-                    const sortedCategoriesInSection = sortBy(
-                      categoriesInSection,
-                      (category) => category.title
-                    );
-
-                    return (
-                      <div key={section.id}>
-                        <h3 className={styles.filterCategoryTitle}>
-                          {section.name}
-                        </h3>
-                        {sortedCategoriesInSection.map((category) => (
-                          <FilterItem
-                            key={category.id}
-                            id={category.id}
-                            type="pill"
-                            onChange={(e) => {
-                              filterItemOnChange(e, section);
-                            }}
-                            isChecked={
-                              selectedFilters[section.id]?.includes(
-                                category.id
-                              ) || false
-                            }
-                            className={styles.filterItemInput}
-                            title={category.title}
-                          />
-                        ))}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className={styles.dialogFooter}>
-                  <Button type="button" onClick={close}>
-                    View {filteredDesigners.length} designer
-                    {filteredDesigners.length !== 1 ? "s" : ""}
-                  </Button>
-                </div>
-              </DialogContent>
-            </DialogOverlay>
-          </div>
         </div>
       </div>
     </Layout>
   );
 };
+
+export const pageQuery = graphql`
+  query Index {
+    allStrapiDesigner {
+      nodes {
+        Name
+        id
+        display_url
+        expanded_url
+        profile_link_color
+        Description
+        location {
+          DisplayName
+          id
+        }
+        expertise {
+          Name
+          id
+        }
+        ProfileImage {
+          localFile {
+            childImageSharp {
+              gatsbyImageData(height: 200)
+            }
+          }
+        }
+      }
+    }
+    allStrapiExpertise {
+      nodes {
+        Name
+        id
+      }
+    }
+    allStrapiLocation {
+      nodes {
+        DisplayName
+        id
+      }
+    }
+  }
+`;
 
 export default App;

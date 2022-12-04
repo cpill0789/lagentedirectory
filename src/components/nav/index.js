@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import Logo from "../logo";
-import styles from "./nav.module.scss";
+import * as styles from "./nav.module.scss";
 
 const Nav = (props) => {
   return (
