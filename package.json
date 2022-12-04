@@ -1,6 +1,7 @@
 {
   "name": "la-gente-directory",
-  "description": "A Twitter directory of accomplished women in the design industry.",
+  "description": "LA GENTE: The Latinx/e Theatre Production Network Directory",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "start": "gatsby develop",
@@ -9,7 +10,6 @@
     "test": "eslint . --ext .js --ext .jsx",
     "format": "prettier \"**/*.{js,jsx,ts,tsx,css,sass,scss,json,md,mdx,html}\" --write"
   },
-  "resolutions": {},
   "dependencies": {
     "classnames": "^2.2.6",
     "dotenv": "^16.0.3",
@@ -34,10 +34,6 @@
     "reset-css": "^5.0.1",
     "tachyons": "^4.12.0"
   },
-  "private": true,
-  "workspaces": [
-    "plugins/*"
-  ],
   "devDependencies": {
     "@babel/eslint-parser": "^7.12.1",
     "babel-preset-gatsby": "^3.2.0",

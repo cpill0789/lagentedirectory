@@ -1,4 +1,8 @@
-# Women Who Design
+## La Gente Directory
+
+This is a fork of the **Women Who Design** directory for *LA GENTE: The Latinx/e Theatre Production Network*. It has been modified to use [Strapi](https://strapi.io/) as the backing data source rather than twitter.
+
+## Women Who Design
 
 Women Who Design is a [Gatsby](https://gatsbyjs.org)-powered Twitter directory of accomplished women in the design industry. It aims to help people find notable and relevant voices to follow on Twitter by parsing Twitter bios for popular keywords.
 
