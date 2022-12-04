@@ -84,14 +84,12 @@ const App = ({ data }) => {
     });
     const shuffledDesigners = shuffle(data.allStrapiDesigner.nodes);
 
-    
-
     setFilterCategories([...expertise, ...location]);
     setVisibleDesigners(shuffledDesigners);
     setIsLoading(false);
   }, [data.allStrapiDesigner.nodes, data.allStrapiExpertise.nodes, data.allStrapiLocation.nodes]);
 
-  const numDesignersPerPage = 52;
+  const numDesignersPerPage = 8;
   const numPagesToShowInPagination = 5;
 
   const isNoFilterApplied = Object.entries(selectedFilters).every(
