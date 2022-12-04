@@ -89,7 +89,7 @@ const App = ({ data }) => {
     setIsLoading(false);
   }, [data.allStrapiDesigner.nodes, data.allStrapiExpertise.nodes, data.allStrapiLocation.nodes]);
 
-  const numDesignersPerPage = 8;
+  const numDesignersPerPage = 25;
   const numPagesToShowInPagination = 5;
 
   const isNoFilterApplied = Object.entries(selectedFilters).every(
