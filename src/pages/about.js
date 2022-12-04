@@ -71,9 +71,7 @@ const friends = [
 
 const sortedFriends = sortBy(friends, (friend) => friend.title);
 
-const App = ({ data }) => {
-  console.log(data);
-  return (
+const App = ({ data }) => (
   <Layout>
     <Helmet title="About | LA GENTE: The Latinx/e Theatre Production Network" />
     <Nav theme="light" />
@@ -88,8 +86,7 @@ const App = ({ data }) => {
       </div>
     </div>
   </Layout>
-)
-};
+);
 
 export const pageQuery = graphql`
   query Index {
