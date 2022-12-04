@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "gatsby develop",
+    "clean": "gatsby clean",
     "build": "gatsby build",
     "serve": "gatsby serve",
     "test": "eslint . --ext .js --ext .jsx",

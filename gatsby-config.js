@@ -25,8 +25,46 @@ module.exports = {
       options: {
         apiURL: process.env.STRAPI_API_URL || "http://localhost:1337",
         accessToken: process.env.STRAPI_TOKEN,
-        collectionTypes: ["designer", "location", "expertise"],
-        singleTypes: ["about", "home"],
+        collectionTypes: [
+          {
+            singularName: "designer",
+            queryParams: {
+              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+            },
+          },
+          {
+            singularName: "designer",
+            queryParams: {
+              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+            },
+          },
+          {
+            singularName: "location",
+            queryParams: {
+              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+            },
+          },
+          {
+            singularName: "expertise",
+            queryParams: {
+              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+            },
+          },
+        ],
+        singleTypes: [
+          {
+            singularName: "about",
+            queryParams: {
+              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+            },
+          },
+          {
+            singularName: "home",
+            queryParams: {
+              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+            },
+          },
+        ],
       },
     },
     `gatsby-plugin-lodash`,
