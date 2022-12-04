@@ -130,7 +130,7 @@ const App = ({ data }) => {
 
   return (
     <Layout>
-      <div className={styles.container}>
+      <div className={styles.container} style={{backgroundColor: data.allStrapiHome.nodes[0].background || "#000000"}}>
         <div className={styles.sidebar}>
           <Nav
             filter
@@ -144,7 +144,6 @@ const App = ({ data }) => {
           <div
             className={classnames({
               [styles.filterContainer]: true,
-              [styles.filterListVisible]: isFilterListVisible,
             })}
           >
             {filterCategoryTypes.map((section) => {
@@ -170,7 +169,6 @@ const App = ({ data }) => {
                         selectedFilters[section.id]?.includes(category.id) ||
                         false
                       }
-                      className={styles.filterItemInput}
                       title={category.title}
                       count={category.totalCount}
                     />
@@ -183,7 +181,6 @@ const App = ({ data }) => {
         <div
           className={classnames({
             [styles.main]: true,
-            [styles.slide]: isFilterListVisible,
           })}
           ref={profileContainerRef}
         >
@@ -203,7 +200,6 @@ const App = ({ data }) => {
                       name={designer.Name}
                       description={designer.Description}
                       location={designer.location.DisplayName || "N/A"}
-                      hex={`#${designer.profile_link_color}`}
                       key={designer.id}
                       displayUrl={designer.display_url}
                       expandedUrl={designer.expanded_url}
@@ -313,7 +309,6 @@ export const pageQuery = graphql`
         id
         display_url
         expanded_url
-        profile_link_color
         Description
         location {
           DisplayName
@@ -342,6 +337,11 @@ export const pageQuery = graphql`
       nodes {
         DisplayName
         id
+      }
+    }
+    allStrapiHome {
+      nodes {
+        background
       }
     }
   }

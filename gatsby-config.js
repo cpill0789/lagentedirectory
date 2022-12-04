@@ -26,7 +26,7 @@ module.exports = {
         apiURL: process.env.STRAPI_API_URL || "http://localhost:1337",
         accessToken: process.env.STRAPI_TOKEN,
         collectionTypes: ["designer", "location", "expertise"],
-        singleTypes: ["about"],
+        singleTypes: ["about", "home"],
       },
     },
     `gatsby-plugin-lodash`,
@@ -35,29 +35,5 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-image`,
     `gatsby-plugin-react-helmet`,
-    // {
-    //   resolve: `gatsby-plugin-google-analytics`,
-    //   options: {
-    //     trackingId: process.env.WWD_GOOGLE_ANALYTICS_ID,
-    //   },
-    // },
-    // {
-    //   resolve: `gatsby-plugin-favicon`,
-    //   options: {
-    //     logo: "./src/favicon.png",
-    //     injectHTML: true,
-    //     icons: {
-    //       android: false,
-    //       appleIcon: false,
-    //       appleStartup: false,
-    //       coast: false,
-    //       favicons: true,
-    //       firefox: false,
-    //       twitter: false,
-    //       yandex: false,
-    //       windows: false,
-    //     },
-    //   },
-    // },
   ],
 };
