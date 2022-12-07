@@ -12,7 +12,9 @@
     "format": "prettier \"**/*.{js,jsx,ts,tsx,css,sass,scss,json,md,mdx,html}\" --write"
   },
   "dependencies": {
+    "@reach/dialog": "^0.18.0",
     "classnames": "^2.2.6",
+    "clickable-box": "^1.1.10",
     "dotenv": "^16.0.3",
     "feather-icons": "^4.28.0",
     "gatsby": "^5.0.0",

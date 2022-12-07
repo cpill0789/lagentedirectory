@@ -3,13 +3,19 @@ import "reset-css";
 import { shuffle, sortBy } from "lodash";
 import { graphql } from "gatsby";
 import classnames from "classnames";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
+import ClickableBox from "clickable-box";
 import Profile from "../components/profile";
 import Layout from "../components/layout";
 import FilterItem from "../components/filter-item";
 import Nav from "../components/nav";
 import Loader from "../components/loader";
 import paginate from "../paginate";
+import "@reach/dialog/styles.css";
 import * as styles from "./index.module.scss";
+import CloseIcon from "../icons/close";
+import FilterIcon from "../icons/filter";
+import Button from "../components/button";
 
 const App = ({ data }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +24,10 @@ const App = ({ data }) => {
   const [selectedFilters, setSelectedFilters] = useState({});
 
   const [isFilterListVisible, setIsFilterListVisible] = useState(false);
+
+  const [showDialog, setShowDialog] = React.useState(false);
+  const open = () => setShowDialog(true);
+  const close = () => setShowDialog(false);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -286,8 +296,17 @@ const App = ({ data }) => {
                       type="button"
                       className={styles.paginationArrow}
                     >
-                      →
                     </button>
+                  </div>
+                  <div className={styles.filterButtonContainer}>
+                    <Button type="button" onClick={open} fullWidth={false}>
+                      <FilterIcon /> Filter
+                      {selectedFilters.length > 0 && (
+                        <>
+                          <span>·</span> <span>{selectedFilters.length}</span>
+                        </>
+                      )}
+                    </Button>
                   </div>
                 </>
               ) : (
@@ -295,6 +314,73 @@ const App = ({ data }) => {
               )}
             </>
           )}
+          <div>
+            <DialogOverlay isOpen={showDialog} onDismiss={close}>
+              <DialogContent aria-label="Filter designers">
+                <div className={styles.dialogHeader}>
+                  <ClickableBox className={styles.closeButton} onClick={close}>
+                    <span aria-hidden>
+                      <CloseIcon />
+                    </span>
+                  </ClickableBox>
+                  <h2>Filter</h2>
+                  <button
+                    onClick={() => {
+                      setSelectedFilters([]);
+                      setCurrentPage(1);
+                    }}
+                    className={styles.filterClear}
+                    type="button"
+                    style={{ marginRight: "16px" }}
+                  >
+                    Clear
+                  </button>
+                </div>
+                <div className={styles.dialogBody}>
+                  {filterCategoryTypes.map((section) => {
+                    const categoriesInSection = filterCategories.filter(
+                      (c) => c[section.id]
+                    );
+                    const sortedCategoriesInSection = sortBy(
+                      categoriesInSection,
+                      (category) => category.title
+                    );
+
+                    return (
+                      <div key={section.id}>
+                        <h3 className={styles.filterCategoryTitle}>
+                          {section.name}
+                        </h3>
+                        {sortedCategoriesInSection.map((category) => (
+                          <FilterItem
+                            key={category.id}
+                            id={category.id}
+                            type="pill"
+                            onChange={(e) => {
+                              filterItemOnChange(e, section);
+                            }}
+                            isChecked={
+                              selectedFilters[section.id]?.includes(
+                                category.id
+                              ) || false
+                            }
+                            className={styles.filterItemInput}
+                            title={category.title}
+                          />
+                        ))}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className={styles.dialogFooter}>
+                  <Button type="button" onClick={close}>
+                    View {filteredDesigners.length} designer
+                    {filteredDesigners.length !== 1 ? "s" : ""}
+                  </Button>
+                </div>
+              </DialogContent>
+            </DialogOverlay>
+          </div>
         </div>
       </div>
     </Layout>
