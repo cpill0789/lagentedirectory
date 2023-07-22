@@ -69,6 +69,10 @@ const App = ({ data }) => {
         }
         tagCounts[item.id] += 1;
       });
+
+      if (!designer.location) {
+        return;
+      }
       
       if (tagCounts[designer.location.id] === undefined) {
         tagCounts[designer.location.id] = 0;
@@ -209,7 +213,7 @@ const App = ({ data }) => {
                       image={designer.ProfileImage}
                       name={designer.Name}
                       description={designer.Description}
-                      location={designer.location.DisplayName || "N/A"}
+                      location={designer.location?.DisplayName || "N/A"}
                       key={designer.id}
                       displayUrl={designer.display_url}
                       expandedUrl={designer.expanded_url}
