@@ -77,8 +77,13 @@ const App = ({ data }) => (
     <Nav theme="light" />
     <div className={styles.container}>
       <h1 className={styles.h1}>About this project</h1>
-      <div dangerouslySetInnerHTML={{ __html: data.allStrapiAbout.nodes[0].content.data.childMarkdownRemark.html }}></div>
-      
+      <div
+        dangerouslySetInnerHTML={{
+          __html:
+            data.allStrapiAbout.nodes[0].content.data.childMarkdownRemark.html,
+        }}
+      ></div>
+
       <div className={styles.backContainer}>
         <Link to="/" className={styles.backLink}>
           Back to directory
@@ -104,6 +109,6 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 
 export default App;

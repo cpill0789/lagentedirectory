@@ -1,6 +1,6 @@
 ## La Gente Directory
 
-This is a fork of the **Women Who Design** directory for *LA GENTE: The Latinx/e Theatre Production Network*. It has been modified to use [Strapi](https://strapi.io/) as the backing data source rather than twitter.
+This is a fork of the **Women Who Design** directory for _LA GENTE: The Latinx/e Theatre Production Network_. It has been modified to use [Strapi](https://strapi.io/) as the backing data source rather than twitter.
 
 ## Women Who Design
 

@@ -1,12 +1,12 @@
 import React from "react";
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import MapIcon from "../../icons/map";
 import LinkIcon from "../../icons/link";
 import * as styles from "./profile.module.scss";
 
 const Profile = (props) => {
   const image = getImage(props.image.localFile);
-  
+
   return (
     <div
       className={styles.profile}
@@ -14,8 +14,8 @@ const Profile = (props) => {
         "--profile-theme-color":
           props.hex === "#FFFFFF" ? "#000000" : props.hex,
       }}
-    > 
-      <GatsbyImage 
+    >
+      <GatsbyImage
         image={image}
         alt={`${props.name}'s avatar.'`}
         fluid={props.fluid}

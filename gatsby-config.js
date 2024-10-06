@@ -29,25 +29,29 @@ module.exports = {
           {
             singularName: "designer",
             queryParams: {
-              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+              publicationState:
+                process.env.GATSBY_IS_PREVIEW === "true" ? "preview" : "live",
             },
           },
           {
             singularName: "designer",
             queryParams: {
-              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+              publicationState:
+                process.env.GATSBY_IS_PREVIEW === "true" ? "preview" : "live",
             },
           },
           {
             singularName: "location",
             queryParams: {
-              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+              publicationState:
+                process.env.GATSBY_IS_PREVIEW === "true" ? "preview" : "live",
             },
           },
           {
             singularName: "expertise",
             queryParams: {
-              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+              publicationState:
+                process.env.GATSBY_IS_PREVIEW === "true" ? "preview" : "live",
             },
           },
         ],
@@ -55,13 +59,15 @@ module.exports = {
           {
             singularName: "about",
             queryParams: {
-              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+              publicationState:
+                process.env.GATSBY_IS_PREVIEW === "true" ? "preview" : "live",
             },
           },
           {
             singularName: "home",
             queryParams: {
-              publicationState: process.env.GATSBY_IS_PREVIEW === 'true' ? 'preview' : 'live',
+              publicationState:
+                process.env.GATSBY_IS_PREVIEW === "true" ? "preview" : "live",
             },
           },
         ],

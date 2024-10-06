@@ -60,10 +60,10 @@ const App = ({ data }) => {
   }
 
   useEffect(() => {
-    const tagCounts = {}
+    const tagCounts = {};
 
-    data.allStrapiDesigner.nodes.forEach(designer => {
-      designer.expertise.forEach(item => {
+    data.allStrapiDesigner.nodes.forEach((designer) => {
+      designer.expertise.forEach((item) => {
         if (tagCounts[item.id] === undefined) {
           tagCounts[item.id] = 0;
         }
@@ -73,35 +73,46 @@ const App = ({ data }) => {
       if (!designer.location) {
         return;
       }
-      
+
       if (tagCounts[designer.location.id] === undefined) {
         tagCounts[designer.location.id] = 0;
       }
       tagCounts[designer.location.id] += 1;
+
+      designer.secondary_locations?.forEach((loc) => {
+        if (tagCounts[loc.id] === undefined) {
+          tagCounts[loc.id] = 0;
+        }
+        tagCounts[loc.id] += 1;
+      });
     });
 
-    const expertise = data.allStrapiExpertise.nodes.map(item => {
+    const expertise = data.allStrapiExpertise.nodes.map((item) => {
       return {
         title: item.Name,
         id: item.id,
         expertise: true,
         totalCount: tagCounts[item.id],
-      }
+      };
     });
-    const location = data.allStrapiLocation.nodes.map(item => {
+    const location = data.allStrapiLocation.nodes.map((item) => {
       return {
         title: item.DisplayName,
         id: item.id,
         location: true,
         totalCount: tagCounts[item.id],
-      }
+      };
     });
     const shuffledDesigners = shuffle(data.allStrapiDesigner.nodes);
 
     setFilterCategories([...expertise, ...location]);
     setVisibleDesigners(shuffledDesigners);
     setIsLoading(false);
-  }, [data.allStrapiDesigner.nodes, data.allStrapiExpertise.nodes, data.allStrapiLocation.nodes]);
+  }, [
+    data.allStrapiDesigner.nodes,
+    data.allStrapiExpertise.nodes,
+    data.allStrapiLocation.nodes,
+  ]);
 
   const numDesignersPerPage = 40;
   const numPagesToShowInPagination = 5;
@@ -130,7 +141,12 @@ const App = ({ data }) => {
             if (!Array.isArray(attributesToFilter)) {
               attributesToFilter = [attributesToFilter];
             }
-            return attributesToFilter.some((item) => item.id === filter);
+            if (categoryName === "location" && designer.secondary_locations) {
+              attributesToFilter.push(...designer.secondary_locations);
+            }
+            return attributesToFilter.some((item) => {
+              return item?.id === filter;
+            });
           });
         });
       });
@@ -144,7 +160,12 @@ const App = ({ data }) => {
 
   return (
     <Layout>
-      <div className={styles.container} style={{backgroundColor: data.allStrapiHome.nodes[0].background || "#000000"}}>
+      <div
+        className={styles.container}
+        style={{
+          backgroundColor: data.allStrapiHome.nodes[0].background || "#000000",
+        }}
+      >
         <div className={styles.sidebar}>
           <Nav
             filter
@@ -299,8 +320,7 @@ const App = ({ data }) => {
                       disabled={pagination.currentPage === pagination.endPage}
                       type="button"
                       className={styles.paginationArrow}
-                    >
-                    </button>
+                    ></button>
                   </div>
                   <div className={styles.filterButtonContainer}>
                     <Button type="button" onClick={open} fullWidth={false}>
@@ -401,6 +421,10 @@ export const pageQuery = graphql`
         expanded_url
         Description
         location {
+          DisplayName
+          id
+        }
+        secondary_locations {
           DisplayName
           id
         }
