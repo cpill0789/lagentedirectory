@@ -1,4 +1,4 @@
-import designerData from './data/designers.yaml';
+import designerData from "./data/designers.yaml";
 
 const tagCounts = {};
 

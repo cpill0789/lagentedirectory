@@ -9,8 +9,7 @@ const Layout = ({ children }) => (
       meta={[
         {
           property: "description",
-          content:
-            "LA GENTE: The Latinx/e Theatre Production Network",
+          content: "LA GENTE: The Latinx/e Theatre Production Network",
         },
         // { property: "og:title", content: "LA GENTE: The Latinx/e Theatre Production Network" },
         // {
