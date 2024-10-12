@@ -25,7 +25,7 @@
     "gatsby-plugin-sharp": "^5.2.0",
     "gatsby-remark-smartypants": "^6.2.0",
     "gatsby-source-filesystem": "^5.2.0",
-    "gatsby-source-strapi": "^2.0.0",
+    "gatsby-source-strapi": "^4.0.0",
     "gatsby-transformer-remark": "^6.2.0",
     "gatsby-transformer-sharp": "^5.2.0",
     "lodash": "^4.17.20",
