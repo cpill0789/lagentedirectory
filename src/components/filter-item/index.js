@@ -16,6 +16,11 @@ const FilterItem = ({ isChecked, onChange, title, id, type, count }) => {
     [styles.labelPill]: type === "pill",
     [styles.labelRow]: type === "row",
   });
+
+  if (!count) {
+    return <></>;
+  }
+
   return (
     <span key={id} className={pillStyles}>
       <input
